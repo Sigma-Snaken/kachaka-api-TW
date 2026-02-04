@@ -7,7 +7,7 @@ from ..generated.kachaka_api_pb2 import Map, Pose, Quaternion
 
 
 def calculate_yaw_from_quaternion(q: Quaternion) -> float:
-    # カチャカの姿勢はz軸周りの回転のみ含むため、他の軸は無視して算出する
+    # Kachaka 的姿態僅包含繞 Z 軸的旋轉，因此忽略其他軸進行計算
     yaw = atan2(q.z, q.w) * 2
     if abs(yaw) > pi:
         yaw -= np.sign(yaw) * 2 * pi
@@ -39,10 +39,10 @@ class MapImage2DGeometry:
     def calculate_robot_pose_matrix_in_pixel(
         self, robot_pose: Pose
     ) -> np.ndarray:
-        """ロボットの姿勢から画像上の姿勢を表す行列に変換する
+        """將機器人姿態轉換為影像上姿態的矩陣
 
-        :param robot_pose: ロボット姿勢 [m, m, rad]
-        :returns 3x3 行列
+        :param robot_pose: 機器人姿態 [m, m, rad]
+        :returns 3x3 矩陣
         """
         return self._image_origin_to_map @ calculate_2d_transform_matrix(
             robot_pose.x, robot_pose.y, robot_pose.theta
@@ -51,11 +51,11 @@ class MapImage2DGeometry:
     def calculate_robot_pose_matrix_from_pixel(
         self, pixel_xy: Tuple[float, float], angle: float = 0
     ) -> np.ndarray:
-        """画像上の姿勢からロボットの姿勢を表す行列に変換する
+        """將影像上的姿態轉換為機器人姿態的矩陣
 
-        :param pixel_xy: 画像原点からの位置 [px, px]
-        :param angle: 半時計周りを正とする角度 [radian]
-        :returns 3x3 行列
+        :param pixel_xy: 從影像原點的位置 [px, px]
+        :param angle: 以逆時針為正的角度 [radian]
+        :returns 3x3 矩陣
         """
         return self._map_to_image_origin @ calculate_2d_transform_matrix(
             *pixel_xy, angle

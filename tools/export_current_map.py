@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-# カチャカが現在使用中の地図をエクスポートする実行形式のスクリプトのサンプルです。
-# Usage: python3 export_map.py --ip_address <カチャカのIPアドレス> --output_dir <出力先ディレクトリ>
+# 這是將 Kachaka 目前使用中的地圖匯出的可執行腳本範例。
+# Usage: python3 export_map.py --ip_address <Kachaka 的 IP 位址> --output_dir <輸出目錄>
 
 from __future__ import annotations
 

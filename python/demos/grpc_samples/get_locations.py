@@ -4,11 +4,11 @@ import grpc
 import kachaka_api_pb2
 from kachaka_api_pb2_grpc import KachakaApiStub
 
-# gRPCの初期化
+# gRPC 的初始化
 stub = KachakaApiStub(grpc.insecure_channel(sys.argv[1]))
 
-# GetLocationsを実行します
+# 執行 GetLocations
 response = stub.GetLocations(kachaka_api_pb2.GetRequest())
 
-# 実行結果を表示
+# 顯示執行結果
 print(response)

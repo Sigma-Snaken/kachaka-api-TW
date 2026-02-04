@@ -1,53 +1,53 @@
-# スマートスピーカー連携サンプル
+# 智慧音箱連動範例
 
-## はじめに
-* このサンプルは、カチャカ、Google Home、IFTTT、Beebotteのサービス連携を行います。
-* Google Nest Miniなどのデバイス、およびIFTTT、Beebotteサービスへの登録が必要になります。
+## 開始使用
+* 此範例進行 Kachaka、Google Home、IFTTT、Beebotte 的服務連動。
+* 需要 Google Nest Mini 等裝置，以及 IFTTT、Beebotte 服務的註冊。
 
-## Beebotteの設定
+## Beebotte 的設定
 
-* Beebotteのサイトにログインします: https://beebotte.com/
-* 新しいチャンネル/リソースを作ります
-  * 左メニューのChannelsを選択
-    * My Channels右の「Create New」ボタンを押します
+* 登入 Beebotte 網站：https://beebotte.com/
+* 建立新的頻道/資源
+  * 選擇左側選單的 Channels
+    * 按下 My Channels 右側的「Create New」按鈕
     * Channel Name: test
     * Resource name: sample
-    * 「Create Channel」ボタンを押します
-* 以下の場所にあるトークンを保存しておきます
-  * 左メニューのChannelsを選択
-  * My Channelsからtestを選択
+    * 按下「Create Channel」按鈕
+* 儲存以下位置的權杖
+  * 選擇左側選單的 Channels
+  * 從 My Channels 選擇 test
   * Channel Token: token_xxxxxxx
 
-## IFTTTの設定
+## IFTTT 的設定
 
-* IFTTTのサイトにログインします: https://ifttt.com/
-* 「create」ボタンを押します
-* 「If This」を押して、以下の設定にします
-  * Choose a serviceからGoogle Assistant V2を選択します
-  * 「activate sentence」を押します
-     * 「シェルフを持ってきて」など、サービスを呼び出す時にGoogle Homeに呼びかける言葉を設定します
-  * 「Create Trigger」を押します
-* 「Then That」を押して、以下の設定にします
-  * Choose a serviceからWebhooksを選択します
-  * 「Make a web request」を押して、以下のように設定します
-    * URL: https://api.beebotte.com/v1/data/publish/test/sample?token=<Beebottteのトークン文字列>
+* 登入 IFTTT 網站：https://ifttt.com/
+* 按下「create」按鈕
+* 按下「If This」，進行以下設定
+  * 從 Choose a service 選擇 Google Assistant V2
+  * 按下「activate sentence」
+     * 設定呼叫服務時對 Google Home 說的話，例如「把家具帶過來」
+  * 按下「Create Trigger」
+* 按下「Then That」，進行以下設定
+  * 從 Choose a service 選擇 Webhooks
+  * 按下「Make a web request」，進行以下設定
+    * URL: https://api.beebotte.com/v1/data/publish/test/sample?token=<Beebotte 的權杖字串>
     * Method: POST
     * Content Type: application/json
-  * 「Create action」を押します
+  * 按下「Create action」
 
-## Google Homeの設定
+## Google Home 的設定
 
-* 以下を参考に設定します
+* 請參考以下進行設定
   * https://support.google.com/googlenest/answer/7194656?hl=en&co=GENIE.Platform%3DAndroid
-* TIPS
-  * 標準的なIFTTTの使用法の場合「OKグーグル、シェルフを持ってきてを有効にして」のように発話しないと実行できません。
-  * Google Assistantアプリのルーティン設定で「OKグーグル、シェルフを持ってきて」の発話で実行できるように変更出来ます。
-    * 「オートメーション」を選択
-    * 「＋」で新しいルーティンを追加します
-    * 「開始条件を追加」→「Googleアシスタントに話しかけたとき」→「シェルフを持ってきて」を設定し、「条件を追加」を押します
-    * 「アクションを追加」→「カスタムアクションの追加」→「シェルフを持ってきてを有効にして」を設定し、「完了」を押します
+* 提示
+  * 使用標準 IFTTT 用法時，需要說「OK Google，啟用把家具帶過來」才能執行。
+  * 在 Google Assistant 應用程式的例行程序設定中，可以變更為只說「OK Google，把家具帶過來」即可執行。
+    * 選擇「自動化」
+    * 用「＋」新增例行程序
+    * 「新增啟動條件」→「對 Google 助理說話時」→ 設定「把家具帶過來」，按下「新增條件」
+    * 「新增動作」→「新增自訂動作」→ 設定「啟用把家具帶過來」，按下「完成」
 
-## ビルド
+## 建置
 
 ```
 cd ~
@@ -64,15 +64,15 @@ cd ~/ros2_ws
 colcon build
 ```
 
-## 実行
+## 執行
 
 
-* ros2_bridgeを起動した上で、以下のコマンドを実行します
+* 在啟動 ros2_bridge 的狀態下，執行以下命令
 ```
 cd ~/ros2_ws
 source install/setup.bash
 
-export TOKEN=<BeeBotteのトークン>
+export TOKEN=<Beebotte 的權杖>
 wget https://beebotte.com/certs/mqtt.beebotte.com.pem
 
 ros2 run kachaka_smart_speaker smart_speaker

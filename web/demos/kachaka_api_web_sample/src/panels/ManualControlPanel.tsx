@@ -57,7 +57,7 @@ export function ManualControlPanel({
       }}
     >
       <Typography>
-        手動操縦モード: {manualControlEnabled ? 'ON' : 'OFF'}
+        手動操控模式: {manualControlEnabled ? 'ON' : 'OFF'}
       </Typography>
       <Button
         variant="contained"

@@ -1,12 +1,12 @@
-# カチャカAPIでできること
+# Kachaka API 功能一覽
 
-* カチャカAPIの各機能の簡易的な説明は、[カチャカAPIをひとつずつ実行して試す(Jupyter Notebook)](./kachaka_api_client.ipynb)としてまとめています。
-    * すべてのAPIをひとつずつ実行しながら確認することができるドキュメントになっているので、まずはこちらをご覧ください。
-    * こちらにないAPIについては、[APIとして欲しい機能](https://github.com/pf-robotics/kachaka-api/discussions/23)にてご要望をお寄せください。
+* Kachaka API 各功能的簡要說明已彙整在 [逐一執行 Kachaka API 進行體驗（Jupyter Notebook）](./kachaka_api_client.ipynb) 中。
+    * 這是一份可以逐一執行所有 API 進行確認的文件，請先參閱此文件。
+    * 如有此處未列出的 API 需求，請在 [希望新增的 API 功能](https://github.com/pf-robotics/kachaka-api/discussions/23) 中提出您的需求。
 
-## もっと詳しく
+## 更詳細的說明
 
-さらにわかりやすく、図を交えて説明したドキュメントを以下に用意しています。
+以下準備了更易於理解、附有圖示說明的文件。
 
-- [カチャカによる家具の操作](./api/SHELF_HANDLING.md)
-- [エラー状態の検知・ハンドリング](./api/ERROR_HANDLING.md)
+- [Kachaka 的家具操作](./api/SHELF_HANDLING.md)
+- [錯誤狀態的偵測與處理](./api/ERROR_HANDLING.md)

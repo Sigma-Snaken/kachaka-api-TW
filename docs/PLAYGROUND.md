@@ -1,73 +1,73 @@
-# カチャカ体内 (Playground) で自作のプログラムを動かす
+# 在 Kachaka 內部（Playground）執行自製程式
 
-カチャカAPIを使ったプログラムを、カチャカ本体の資源の一部（Playground）を利用して動かすことができます。
-Playgroundは、カチャカ体内で動くDockerコンテナで、Ubuntu 22.04 LTSをベースにしています。
-Playgroundを使えば、カチャカだけで簡潔するシステムを開発することができます。
+可以使用 Kachaka API 開發的程式，在 Kachaka 本體的部分資源（Playground）上執行。
+Playground 是在 Kachaka 內部運行的 Docker 容器，以 Ubuntu 22.04 LTS 為基礎。
+使用 Playground，可以開發僅靠 Kachaka 就能完成的系統。
 
 
-## 目次
-- [Playgroundの仕様](#playgroundの仕様)
-  - [ポート](#ポート)
-  - [PlaygroundからカチャカAPIへのアクセス](#playgroundからカチャカapiへのアクセス)
-  - [Playgroundのリソース制限](#playgroundのリソース制限)
-- [Playgroundにsshでログインする](#playgroundにsshでログインする)
-- [Playgroundでサンプルプログラムを実行する](#playgroundでサンプルプログラムを実行する)
-- [自作ソフトの自動起動](#自作ソフトの自動起動)
-  - [例) 時報のサンプルを自動起動する](#例-時報のサンプルを自動起動する)
+## 目錄
+- [Playground 的規格](#playground-的規格)
+  - [連接埠](#連接埠)
+  - [從 Playground 存取 Kachaka API](#從-playground-存取-kachaka-api)
+  - [Playground 的資源限制](#playground-的資源限制)
+- [透過 ssh 登入 Playground](#透過-ssh-登入-playground)
+- [在 Playground 中執行範例程式](#在-playground-中執行範例程式)
+- [自製軟體的自動啟動](#自製軟體的自動啟動)
+  - [範例）自動啟動報時範例](#範例-自動啟動報時範例)
 
-## Playgroundの仕様
-### ポート
-* カチャカの公開ポートの中で、Playgroundに関連するものは以下の通りです。
+## Playground 的規格
+### 連接埠
+* Kachaka 公開的連接埠中，與 Playground 相關的如下。
 
-| ポート番号 | 用途 |
+| 連接埠號 | 用途 |
 | --- | --- |
-| 26400 | KachakaAPI サーバー (gRPC) |
-| 26500 | Playground の ssh |
-| 26501 | Playground の JupyterLab |
-| 26502~26509 | 割り当てなし（自由利用可能） |
+| 26400 | KachakaAPI 伺服器 (gRPC) |
+| 26500 | Playground 的 ssh |
+| 26501 | Playground 的 JupyterLab |
+| 26502~26509 | 未分配（可自由使用） |
 
-### PlaygroundからカチャカAPIへのアクセス
-* Playground内部からカチャカAPIを利用する場合、サーバーのアドレスは `100.94.1.1:26400`になります。
-  * pythonのkachaka_apiライブラリでは、`KachakaApiClient`のデフォルト値はこのアドレスになっています。
+### 從 Playground 存取 Kachaka API
+* 從 Playground 內部使用 Kachaka API 時，伺服器位址為 `100.94.1.1:26400`。
+  * Python 的 kachaka_api 套件中，`KachakaApiClient` 的預設值即為此位址。
 
-### Playgroundのリソース制限
+### Playground 的資源限制
 
-* ストレージ総計(/home, tmp) 3GB
-* メモリー 512MB
+* 儲存空間合計（/home, tmp）3GB
+* 記憶體 512MB
 
 
-## Playgroundにsshでログインする
+## 透過 ssh 登入 Playground
 
-* jupyterlabのterminalもしくは下記のnotebookいずれかを用いて公開鍵の設定を行います
+* 使用 JupyterLab 的終端機或以下任一 notebook 進行公鑰設定
     * utils/set_authorized_keys.ipynb
     * utils/set_authorized_keys_from_github.ipynb
-        * githubに登録している鍵をカチャカでも利用したい場合、こちらのスクリプトが便利です
-* utils/set_authorized_keys.ipynbを使用した設定方法
-    * 画面左上のFile Browserを選択します。
-    * 画面左のファイル一覧からutils → set_authorized_keys.ipynbをダブルクリックします。
-    * 画面中央のpublic_keysに公開鍵のテキストを貼り付けます。
-    * 上部メニューの「▶▶」ボタンを押します。
+        * 如果想使用在 GitHub 上註冊的金鑰，此腳本很方便
+* 使用 utils/set_authorized_keys.ipynb 的設定方法
+    * 選擇畫面左上角的 File Browser。
+    * 在畫面左側的檔案列表中雙擊 utils → set_authorized_keys.ipynb。
+    * 在畫面中央的 public_keys 中貼上公鑰文字。
+    * 按下上方選單的「▶▶」按鈕。
 
 <img src="playground/images/set_authorized_kyes.png" alt="set-authorized-keys" width="600">
 
-* utils/set_authorized_keys_from_github.ipynbを使用した設定方法
-    * 画面左上のFile Browserを選択します。
-    * 画面左のファイル一覧からutils → set_authorized_keys_from_github.ipynbをダブルクリックします。
-    * 画面中央のuserにgithubのユーザ名を入力します。
-    * 上部メニューの「▶▶」ボタンを押します
+* 使用 utils/set_authorized_keys_from_github.ipynb 的設定方法
+    * 選擇畫面左上角的 File Browser。
+    * 在畫面左側的檔案列表中雙擊 utils → set_authorized_keys_from_github.ipynb。
+    * 在畫面中央的 user 中輸入 GitHub 的使用者名稱。
+    * 按下上方選單的「▶▶」按鈕。
 
 <img src="playground/images/set_authorized_keys_from_github.png" alt="set-authorized-keys-from-github" width="600">
 
-以下のコマンドを実行してPlaygroundにログインします
+執行以下命令登入 Playground
 
 ```bash
-ssh -p 26500 -i <登録した公開鍵に対応する秘密鍵> kachaka@<kachakaのIPアドレス>
+ssh -p 26500 -i <對應已註冊公鑰的私鑰> kachaka@<Kachaka 的 IP 位址>
 ```
 
-## Playgroundでサンプルプログラムを実行する
+## 在 Playground 中執行範例程式
 
-* カチャカにsshでログインします。
-* 以下のコマンドを実行すると、カチャカが時報を1分間隔で発話します。
+* 透過 ssh 登入 Kachaka。
+* 執行以下命令後，Kachaka 會每隔 1 分鐘播報時間。
 
 ```bash
 cd ~
@@ -76,25 +76,25 @@ pip install -r /home/kachaka/kachaka-api/python/demos/requirements.txt
 python3 /home/kachaka/kachaka-api/python/demos/time_signal.py 100.94.1.1:26400
 ```
 
-## 自作ソフトの自動起動
+## 自製軟體的自動啟動
 
-* カチャカが再起動したときに自動でプログラムが実行されてほしい場合には、自動起動の機能を使うことができます。
-* Playgroundの `/home/kachaka/kachaka_startup.sh` に自動起動したい処理を記述すると、カチャカ起動時に自動的に実行されます。
-* ログは `/tmp/kachaka_startup.log` に記録されます
-    * python3 を自動起動する際は `-u` オプションを付けると良いです。そうでないと標準出力がバッファリングされてしまい、ログが確認できないことがあります。
+* 如果希望 Kachaka 重新啟動時自動執行程式，可以使用自動啟動功能。
+* 在 Playground 的 `/home/kachaka/kachaka_startup.sh` 中寫入要自動啟動的處理，Kachaka 啟動時會自動執行。
+* 日誌會記錄在 `/tmp/kachaka_startup.log`
+    * 自動啟動 python3 時建議加上 `-u` 選項。否則標準輸出會被緩衝，可能無法確認日誌。
 
-### 例) 時報のサンプルを自動起動する
+### 範例）自動啟動報時範例
 
-* 例として、カチャカによる時報のサンプルを自動起動する場合を示します。
-* `/home/kachaka/kachaka_startup.sh` を以下のように編集します。
+* 以下以自動啟動 Kachaka 報時範例為例進行說明。
+* 將 `/home/kachaka/kachaka_startup.sh` 編輯如下。
 
 ```bash
 #!/bin/bash
 
 jupyter-lab --port=26501 --ip='0.0.0.0' &
 
-# 以下の行を追加します
+# 新增以下行
 python3 -u /home/kachaka/kachaka-api/python/demos/time_signal.py 100.94.1.1:26400 &
 ```
 
-* 保存後、カチャカを再起動して暫くすると、1分間隔で現在時刻を発話します。
+* 儲存後，重新啟動 Kachaka，稍等片刻即會每隔 1 分鐘播報當前時間。

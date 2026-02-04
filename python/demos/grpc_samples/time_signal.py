@@ -1,4 +1,4 @@
-# 時報サンプル
+# 報時範例
 
 import datetime
 import sys

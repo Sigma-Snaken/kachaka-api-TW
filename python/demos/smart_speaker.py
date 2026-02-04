@@ -1,5 +1,5 @@
-# スマートスピーカー連携サンプル
-# README_SMART_SPEAKER.mdを参考にセットアップしてください。
+# 智慧音箱連動範例
+# 請參考 README_SMART_SPEAKER.md 進行設定。
 
 import os
 import sys
@@ -9,14 +9,14 @@ import kachaka_api_pb2
 import paho.mqtt.client as mqtt
 from kachaka_api_pb2_grpc import KachakaApiStub
 
-CHANNEL = "test"  # Beebotteのチャンネル名
-RESOURCE = "sample"  # Beebotteのリソース名
-PEM = "./mqtt.beebotte.com.pem"  # Beebotteの証明書ファイル
+CHANNEL = "test"  # Beebotte 的頻道名稱
+RESOURCE = "sample"  # Beebotte 的資源名稱
+PEM = "./mqtt.beebotte.com.pem"  # Beebotte 的憑證檔案
 
-# APIの初期化
+# API 的初始化
 stub = KachakaApiStub(grpc.insecure_channel(sys.argv[1]))
 
-# 環境変数TOKENからトークンを取得します
+# 從環境變數 TOKEN 取得權杖
 try:
     token = os.environ["TOKEN"]
 except KeyError:
@@ -39,12 +39,12 @@ def on_connect(client, userdata, flag, rc):
 def on_message(client, data, msg):
     print("on_message: " + str(msg.payload))
 
-    # move_shelfコマンドを実行
+    # 執行 move_shelf 指令
     req = kachaka_api_pb2.StartCommandRequest(
         command=kachaka_api_pb2.Command(
             move_shelf_command=kachaka_api_pb2.MoveShelfCommand(
-                target_shelf_id="S01",  # shelf ID S01を持って
-                destination_location_id="L01",  # location ID L01に移動
+                target_shelf_id="S01",  # 拿取 shelf ID S01
+                destination_location_id="L01",  # 移動到 location ID L01
             )
         )
     )
@@ -54,7 +54,7 @@ def on_message(client, data, msg):
         sys.exit(1)
 
 
-# mqtt clientの初期化
+# MQTT 客戶端的初始化
 mqtt_client = mqtt.Client()
 mqtt_client.on_connect = on_connect
 mqtt_client.on_message = on_message

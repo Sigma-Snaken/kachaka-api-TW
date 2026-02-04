@@ -1,38 +1,38 @@
 <div align="center" style="margin-bottom: 200px;">
 
   <img src="docs/images/kachaka_api.webp" width="500">
-  
+
   <img src="docs/images/kachaka_api_logo.png" width="300">
 
 </div>
 
 ##
 
-[スマートファニチャー・プラットフォーム「カチャカ」](https://kachaka.life/) のAPIを提供するリポジトリです。
+[智慧家具平台「Kachaka」](https://kachaka.life/) 的API提供儲存庫。
 
-カチャカAPIは、カチャカのドッキングや移動を制御したり、カチャカの状態やセンサー値を取得したりするための機能を提供します。
+Kachaka API 提供控制 Kachaka 對接和移動、取得 Kachaka 狀態和感測器數值等功能。
 
-* ローカルネットワーク内の機器、あるいはカチャカ体内にあるユーザー環境(Playground)からのアクセスが可能です。
-* この公式リポジトリでは、PythonやROS 2で簡単にカチャカAPIを利用できるSDKを提供しています。
+* 可從區域網路內的裝置，或 Kachaka 內部的使用者環境（Playground）進行存取。
+* 本官方儲存庫提供可在 Python 和 ROS 2 中輕鬆使用 Kachaka API 的 SDK。
 
-* カチャカAPIで利用可能な機能一覧については、「[カチャカAPIでできること](./docs/FEATURES.md)」をご覧ください。
+* 有關 Kachaka API 可用功能的列表，請參閱「[Kachaka API 功能一覽](./docs/FEATURES.md)」。
 
-### 公式で提供するSDK
+### 官方提供的 SDK
 
 * 🐍 Python 3.10+
 * 🤖 ROS 2 Humble (Ubuntu 22.04 LTS)
 
-### その他の言語
-カチャカAPIは[gRPC](https://grpc.io/)を使用した通信インターフェースとして提供されています。
-これ以外の言語でも、gRPCを直接利用してアクセスすることが可能です。
+### 其他語言
+Kachaka API 以 [gRPC](https://grpc.io/) 通訊介面的形式提供。
+其他語言也可以直接使用 gRPC 進行存取。
 
-## はじめに
-### カチャカAPIの有効化
+## 開始使用
+### 啟用 Kachaka API
 > [!IMPORTANT]
-> どんな使い方をする場合でも、まずはじめにスマートフォンアプリを使ってカチャカAPIを有効にする必要があります。
+> 無論使用哪種方式，首先都需要透過智慧型手機應用程式啟用 Kachaka API。
 
-* カチャカに接続し、[⚙設定]のタブから接続するロボットを選択、[カチャカAPI]ページを開いて「カチャカAPIを有効化する」をONにします。
-* ダイアログが表示されるので、「利用規約」を確認の上、「カチャカAPI利用規約に同意する」をチェックして「設定する」を押して下さい。
+* 連接 Kachaka 後，從 [⚙設定] 分頁選擇要連接的機器人，開啟 [Kachaka API] 頁面並將「啟用 Kachaka API」設為開啟。
+* 會顯示對話框，請確認「使用條款」後，勾選「同意 Kachaka API 使用條款」並按下「設定」。
 
 <table>
 <tr>
@@ -41,11 +41,11 @@
 </tr>
 </table>
 
-### カチャカのIPアドレスの確認
-* またいずれの場合にも、カチャカのIPアドレスが必要になります。
-* [⚙設定] > [アプリ情報] から確認することができます。(以下のキャプチャは白塗りしてあります)
-* また、mDNSによる名前解決に対応しており、同画面の「シリアル番号」からなる
-    * `kachaka-<シリアル番号>.local`というホスト名でもアクセス可能です。
+### 確認 Kachaka 的 IP 位址
+* 此外，任何情況下都需要 Kachaka 的 IP 位址。
+* 可從 [⚙設定] > [應用程式資訊] 中確認。（以下截圖已做遮蔽處理）
+* 另外，支援 mDNS 名稱解析，可透過同一畫面中的「序號」組成的
+    * `kachaka-<序號>.local` 主機名稱進行存取。
 
 <table>
 <tr>
@@ -54,29 +54,29 @@
 </tr>
 </table>
 
-## カチャカAPIマニュアル
+## Kachaka API 手冊
 
-* 📖 [カチャカAPIでできること](./docs/FEATURES.md)
-    * カチャカAPIでできることをまとめています。
-* 🚀 [カチャカAPIを簡単に試してみる (JupyterLab)](./docs/QUICKSTART.md)
-    * Webブラウザから、JupyterLabを使ってカチャカAPIを利用する方法を説明します。
-    * OS環境を問わず広く利用できるため、カチャカAPIの動作確認やサンプルコードの実行におすすめです。
-* 🐍 [PythonでカチャカAPIを利用する](./docs/PYTHON.md)
-    * PythonでカチャカAPIを利用する方法を説明します。
-* 🤖 [ROS 2でカチャカAPIを利用する](./docs/ROS2.md)
-    * ROS 2でカチャカAPIを利用する方法を説明します。
-* 🏠 [カチャカ体内 (Playground) で自作のプログラムを動かす](./docs/PLAYGROUND.md)
-    * カチャカ内部には、Playgroundというユーザー用の環境があります。
-    * 外部機器を用意せずとも、カチャカ体内で自作のプログラムを動かすことが可能です。
-* 🌐 [PythonやROS2以外の言語でカチャカAPIを利用する](./docs/GRPC.md)
-    * PythonやROS2以外の言語でカチャカAPIを利用する方法を説明します。
-* 💻 [WebアプリでカチャカAPIを利用する](./docs/WEB.md)
-    * WebアプリでカチャカAPIを利用する方法を説明します。
+* 📖 [Kachaka API 功能一覽](./docs/FEATURES.md)
+    * 彙整了 Kachaka API 可實現的功能。
+* 🚀 [快速體驗 Kachaka API (JupyterLab)](./docs/QUICKSTART.md)
+    * 說明如何透過網頁瀏覽器使用 JupyterLab 來使用 Kachaka API。
+    * 不受作業系統限制，廣泛適用，推薦用於 Kachaka API 的動作確認和範例程式碼的執行。
+* 🐍 [使用 Python 操作 Kachaka API](./docs/PYTHON.md)
+    * 說明如何使用 Python 來操作 Kachaka API。
+* 🤖 [使用 ROS 2 操作 Kachaka API](./docs/ROS2.md)
+    * 說明如何使用 ROS 2 來操作 Kachaka API。
+* 🏠 [在 Kachaka 內部（Playground）執行自製程式](./docs/PLAYGROUND.md)
+    * Kachaka 內部有一個稱為 Playground 的使用者環境。
+    * 無需準備外部裝置，即可在 Kachaka 內部執行自製程式。
+* 🌐 [使用 Python 和 ROS2 以外的語言操作 Kachaka API](./docs/GRPC.md)
+    * 說明如何使用 Python 和 ROS2 以外的語言來操作 Kachaka API。
+* 💻 [在 Web 應用程式中使用 Kachaka API](./docs/WEB.md)
+    * 說明如何在 Web 應用程式中使用 Kachaka API。
 
-## 💬 要望・バグ報告・コントリビューション
+## 💬 需求・錯誤回報・貢獻
 
-* カチャカAPIはOSSとして公開されています。要望やバグ報告など大歓迎です。[コントリビューションガイドライン](./CONTRIBUTING.md)をご覧ください。
-* 質問や要望などは、[GitHub Discussions](https://github.com/pf-robotics/kachaka-api/discussions) からお願いします。
+* Kachaka API 以開源軟體（OSS）形式公開。歡迎提出需求和錯誤回報。請參閱[貢獻指南](./CONTRIBUTING.md)。
+* 問題和需求請透過 [GitHub Discussions](https://github.com/pf-robotics/kachaka-api/discussions) 提出。
 
 ## License
 Copyright 2023 Preferred Robotics, Inc.

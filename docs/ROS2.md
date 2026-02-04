@@ -1,67 +1,67 @@
-# ROS 2でカチャカAPIを利用する
+# 使用 ROS 2 操作 Kachaka API
 
-* カチャカAPIをROS 2から利用するための手順を説明します。
-* 公式で提供するのは、gRPCとROS 2のブリッジ機能と、URDFなどのdescriptionです。
+* 說明從 ROS 2 使用 Kachaka API 的步驟。
+* 官方提供 gRPC 與 ROS 2 的橋接功能，以及 URDF 等 description。
 
-## 目次
-- [kachaka-api ROS 2 で提供するもの](#kachaka-api-ros-2-で提供するもの)
-- [ROS 2 Humbleのセットアップ](#ros-2-humbleのセットアップ)
-- [Dockerを使ったros2_bridgeの起動](#dockerを使ったros2_bridgeの起動)
-  - [Dockerのインストール](#dockerのインストール)
-  - [ブリッジの起動](#ブリッジの起動)
-- [動作を確認する](#動作を確認する)
-- [他のROS 2パッケージと連携する](#他のros-2パッケージと連携する)
-  - [kachaka_interfaces, kachaka_descriptionのビルド](#kachaka_interfaces-kachaka_descriptionのビルド)
-  - [RViz2による可視化](#rviz2による可視化)
-- [サンプルコード](#サンプルコード)
-- [Dockerイメージを自分でビルドする](#dockerイメージを自分でビルドする)
+## 目錄
+- [kachaka-api ROS 2 提供的內容](#kachaka-api-ros-2-提供的內容)
+- [ROS 2 Humble 的設定](#ros-2-humble-的設定)
+- [使用 Docker 啟動 ros2_bridge](#使用-docker-啟動-ros2_bridge)
+  - [安裝 Docker](#安裝-docker)
+  - [啟動橋接](#啟動橋接)
+- [確認運作](#確認運作)
+- [與其他 ROS 2 套件整合](#與其他-ros-2-套件整合)
+  - [建置 kachaka_interfaces、kachaka_description](#建置-kachaka_interfaces-kachaka_description)
+  - [使用 RViz2 進行視覺化](#使用-rviz2-進行視覺化)
+- [範例程式碼](#範例程式碼)
+- [自行建置 Docker 映像檔](#自行建置-docker-映像檔)
 
-## kachaka-api ROS 2 で提供するもの
-| パッケージ名 | 役割 |
+## kachaka-api ROS 2 提供的內容
+| 套件名稱 | 角色 |
 | --- | --- |
-| kachaka_grpc_ros2_bridge | カチャカAPIをROS 2から利用するためのブリッジ |
-| kachaka_interfaces | kachaka_grpc_ros2_bridgeのためのI/F定義 |
-| kachaka_description | カチャカのURDFモデル |
+| kachaka_grpc_ros2_bridge | 從 ROS 2 使用 Kachaka API 的橋接 |
+| kachaka_interfaces | kachaka_grpc_ros2_bridge 的介面定義 |
+| kachaka_description | Kachaka 的 URDF 模型 |
 
-* ROS2 Humble環境向けに、これらのビルドが済んだDockerイメージを公開しています。このあとに続く説明では、このDockerイメージを利用してros2_bridgeを起動します。
-* ご自身でビルドすることで、ROS 2 Humble以外のバージョンでも利用できます。
+* 針對 ROS2 Humble 環境，我們公開了已完成建置的 Docker 映像檔。接下來的說明將使用此 Docker 映像檔來啟動 ros2_bridge。
+* 您也可以自行建置，以便在 ROS 2 Humble 以外的版本中使用。
 
-## ROS 2 Humbleのセットアップ
-* 以下を参考に、ROS 2 Humbleをセットアップして下さい。
+## ROS 2 Humble 的設定
+* 請參考以下連結設定 ROS 2 Humble。
     * https://docs.ros.org/en/humble/index.html
 
-## Dockerを使ったros2_bridgeの起動
-### Dockerのインストール
-* 以下を参考に、Dockerの設定を行って下さい。
+## 使用 Docker 啟動 ros2_bridge
+### 安裝 Docker
+* 請參考以下連結進行 Docker 的設定。
     * https://docs.docker.com/engine/install/ubuntu/
 
-### ブリッジの起動
-* 以下のスクリプトを実行すると、ブリッジが実行されます。
-* 初回実行時に、Dockerイメージがダウンロードされます。
-    * ※ イメージの提供は予告なく停止される場合があります。
+### 啟動橋接
+* 執行以下腳本即可啟動橋接。
+* 首次執行時會下載 Docker 映像檔。
+    * ※ 映像檔的提供可能會在不另行通知的情況下停止。
 
 ```bash
 cd ~/kachaka-api/tools/ros2_bridge
-./start_bridge.sh <カチャカのIPアドレス>
+./start_bridge.sh <Kachaka 的 IP 位址>
 ```
 
-### 動作を確認する
+### 確認運作
 
-* トピックからメッセージを取得できるかどうか確認してみましょう。
-* ブリッジのコンテナが立っているので、これを使ってトピックの確認などを行うことができます。
+* 確認是否能從 topic 取得訊息。
+* 由於橋接的容器已啟動，可以使用它來確認 topic 等資訊。
 
-* トピック一覧の取得
+* 取得 topic 列表
 ```bash
 docker exec -it ros2_bridge-ros2_bridge-1 /opt/kachaka/env.sh ros2 topic list
 ```
 
-* 目的地一覧の取得
+* 取得目的地列表
 
 ```bash
 docker exec -it ros2_bridge-ros2_bridge-1 /opt/kachaka/env.sh ros2 topic echo /kachaka/layout/locations/list
 ```
 
-* 以下のようなレスポンスが返ってきたら成功です。
+* 如果收到以下回應則表示成功。
 
 ```yaml
 locations:
@@ -75,13 +75,13 @@ locations:
 ```
 
 
-## 他のROS 2パッケージと連携する
+## 與其他 ROS 2 套件整合
 
-### kachaka_interfaces, kachaka_descriptionのビルド 
+### 建置 kachaka_interfaces、kachaka_description
 
-* ブリッジが提供するトピックはカチャカ独自のインターフェースで提供されているため、これらのビルドが必要です。
-    * kachaka_descriptionはお好みでビルドしてください。
-* 以下の手順でビルドします。
+* 由於橋接提供的 topic 使用 Kachaka 自訂介面，因此需要建置這些套件。
+    * kachaka_description 請依需求自行選擇是否建置。
+* 按以下步驟進行建置。
 
 ```bash
 mkdir -p ~/ros2_ws/src
@@ -94,9 +94,9 @@ source /opt/ros/humble/setup.bash
 colcon build
 ```
 
-### RViz2による可視化
-* RViz2でブリッジから得られる情報を可視化してみましょう。
-* kachaka_descriptionにサンプルのconfigがあるので、まずはこれを使います。
+### 使用 RViz2 進行視覺化
+* 讓我們使用 RViz2 來視覺化從橋接取得的資訊。
+* kachaka_description 中有範例 config，先使用這個。
 
 ```bash
 cd ~/ros2_ws
@@ -105,24 +105,24 @@ cd src/kachaka_description/config
 rviz2 -d kachaka.rviz
 ```
 
-## サンプルコード
+## 範例程式碼
 
-* サンプルコードは以下の場所にあります
+* 範例程式碼位於以下位置
     * [ros2/demos](../ros2/demos)
-* サンプルコードの実行方法
-    * サンプルコードのREADME.mdの手順を実行してください
+* 範例程式碼的執行方法
+    * 請依照範例程式碼 README.md 中的步驟執行
 
 
-## Dockerイメージを自分でビルドする
-* 初期設定では配布Dockerイメージを使って起動したDockerコンテナ上でros2_bridgeを動作させます。配布Dockerイメージを使う場合はこの手順はスキップしてください。
-* Dockerイメージをカスタマイズしたい場合、以下の手順でビルドします。
-    * 以下の実行例では`BASE_ARCH=x86_64`としていますが、ros2_bridgeをx86_64アーキテクチャのCPU上で実行させる場合の例です。
-    * ros2_bridgeをarm64アーキテクチャのCPU上で実行させる場合は`BASE_ARCH=arm64`としてください。
+## 自行建置 Docker 映像檔
+* 預設設定使用發行的 Docker 映像檔啟動 Docker 容器並在其上運行 ros2_bridge。使用發行的 Docker 映像檔時，可跳過此步驟。
+* 如需自訂 Docker 映像檔，請按以下步驟建置。
+    * 以下範例中設定 `BASE_ARCH=x86_64`，這是在 x86_64 架構 CPU 上執行 ros2_bridge 的情況。
+    * 如要在 arm64 架構 CPU 上執行 ros2_bridge，請設定 `BASE_ARCH=arm64`。
 
 ```bash
 docker buildx build -t kachaka-api --target kachaka-grpc-ros2-bridge -f Dockerfile.ros2 . --build-arg BASE_ARCH=x86_64 --load
 ```
 
-* [tools/ros2_bridge/docker-compose.yaml](../tools/ros2_bridge/docker-compose.yaml)に対して以下の変更を行います。
-    * 変更前：`image: "asia-northeast1-docker.pkg.dev/kachaka-api/docker/kachaka-grpc-ros2-bridge:${TAG}"`
-    * 変更後：`image: kachaka-api:latest`
+* 對 [tools/ros2_bridge/docker-compose.yaml](../tools/ros2_bridge/docker-compose.yaml) 進行以下變更。
+    * 變更前：`image: "asia-northeast1-docker.pkg.dev/kachaka-api/docker/kachaka-grpc-ros2-bridge:${TAG}"`
+    * 變更後：`image: kachaka-api:latest`

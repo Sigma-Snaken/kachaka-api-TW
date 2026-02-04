@@ -29,19 +29,19 @@ class CommandTextFormatter:
             location_name = self._resolver.get_location_name_by_id(
                 command.move_shelf_command.destination_location_id
             )
-            return f"{shelf_name}を{location_name}に移動"
+            return f"將{shelf_name}移動到{location_name}"
         elif command.HasField("return_shelf_command"):
             if command.return_shelf_command.target_shelf_id != "":
                 shelf_name = self._resolver.get_shelf_name_by_id(
                     command.return_shelf_command.target_shelf_id
                 )
-                return f"{shelf_name}を片付ける"
-            return "家具を片付ける"
+                return f"收回{shelf_name}"
+            return "收回家具"
         elif command.HasField("move_to_location_command"):
             location_name = self._resolver.get_location_name_by_id(
                 command.move_to_location_command.target_location_id
             )
-            return f"{location_name}に移動"
+            return f"移動到{location_name}"
         elif command.HasField("return_home_command"):
-            return "充電ドックに戻る"
+            return "返回充電座"
         return ""

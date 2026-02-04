@@ -1,94 +1,94 @@
-# カチャカAPIを簡単に試してみる (JupyterLab)
+# 快速體驗 Kachaka API (JupyterLab)
 
-カチャカ本体内で動作するJupyterLabを利用することで、OSを問わずWebブラウザのみでカチャカAPI (Python) を実行することができます。カチャカAPIの動作確認やサンプルコードの実行におすすめです。
+透過使用在 Kachaka 本體內運行的 JupyterLab，不受作業系統限制，僅需網頁瀏覽器即可執行 Kachaka API (Python)。推薦用於 Kachaka API 的動作確認和範例程式碼的執行。
 
 > [!NOTE]
-> 対応ブラウザについては、[JupyterLab公式ドキュメント](https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html#supported-browsers)をご確認ください。
+> 有關支援的瀏覽器，請參閱 [JupyterLab 官方文件](https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html#supported-browsers)。
 
-## 目次
-- [JupyterLabを開く](#JupyterLabを開く)
-- [サンプルコードを動かしてみる](#サンプルコードを動かしてみる)
-    - [サンプルコードのダウンロード](#サンプルコードのダウンロード)
-    - [サンプル実行のための依存ライブラリのインストール](#サンプル実行のための依存ライブラリのインストール)
-    - [サチャカが発話するサンプルコード](#カチャカが発話するサンプルコード)
-- [カチャカAPIのメソッドを試してみる](#カチャカAPIのメソッドを試してみる)
+## 目錄
+- [開啟 JupyterLab](#開啟-JupyterLab)
+- [執行範例程式碼](#執行範例程式碼)
+    - [下載範例程式碼](#下載範例程式碼)
+    - [安裝執行範例所需的依賴套件](#安裝執行範例所需的依賴套件)
+    - [Kachaka 發話的範例程式碼](#Kachaka-發話的範例程式碼)
+- [試用 Kachaka API 的方法](#試用-Kachaka-API-的方法)
 
-## JupyterLabを開く
+## 開啟 JupyterLab
 
-1. カチャカのIPアドレスを確認します。
-    * スマートフォンアプリの「⚙設定」>「アプリ情報」>「IPアドレス」にカチャカのIPアドレスが記載されています。
-2. ブラウザを起動し、以下のURLにアクセスします。
-    * `http://<カチャカのIPアドレス>:26501/` (例: `http://192.168.0.20:26501/`)
+1. 確認 Kachaka 的 IP 位址。
+    * 在智慧型手機應用程式的「⚙設定」>「應用程式資訊」>「IP 位址」中可以找到 Kachaka 的 IP 位址。
+2. 開啟瀏覽器，存取以下 URL。
+    * `http://<Kachaka 的 IP 位址>:26501/`（例如：`http://192.168.0.20:26501/`）
     <img src="./quickstart/images/jupyter_url.png" width="400">
-* ログイン画面が表示されるので、以下のパスワードを入力してください。
-    * パスワード：kachaka
+* 會顯示登入畫面，請輸入以下密碼。
+    * 密碼：kachaka
 
 ![jupyter-login](./quickstart/images/jupyter-login.png)
 
-* パスワードを変更する場合は、以下をご覧ください。
+* 如需變更密碼，請參閱以下說明。
 <details>
-<summary>パスワードの変更方法</summary>
+<summary>變更密碼的方法</summary>
 
-* パスワードを変更する場合は、まずLauncherから「Terminal」を選択します。
+* 如需變更密碼，首先從 Launcher 選擇「Terminal」。
 
 <img src="./quickstart/images/jupyter-terminal.png" width="450">
 
-* Terminalで、以下のコマンドを入力します。
+* 在 Terminal 中輸入以下命令。
 
 ```console
 $ jupyter lab password
-Enter password: <新しいパスワード>
-Verify password: <新しいパスワード>
+Enter password: <新密碼>
+Verify password: <新密碼>
 ```
 
-* カチャカ本体を再起動すると、新しいパスワードが反映されます。
+* 重新啟動 Kachaka 本體後，新密碼即會生效。
 
 </details>
 
-## サンプルコードを動かしてみる
-### サンプルコードのダウンロード
+## 執行範例程式碼
+### 下載範例程式碼
 
-* 左側のファイル一覧から README.ipynb をダブルクリックしてください。
-* 上部メニューの「▶▶」をクリックしてください。
+* 在左側的檔案列表中雙擊 README.ipynb。
+* 點擊上方選單的「▶▶」。
 
 <img src="./quickstart/images/jupyter-readme.png" width="600">
 
-* 以下のダイアログが表示された場合は「Restart」ボタンを押してください。
+* 如果顯示以下對話框，請按下「Restart」按鈕。
 
 <img src="./quickstart/images/jupyter-restart-dialog.png" width="400">
 
-* サンプルコードのダウンロードが完了すると、以下のようなメッセージが表示され、左側のファイル一覧に kachaka-apiフォルダが作成されます。
+* 範例程式碼下載完成後，會顯示如下訊息，左側的檔案列表中會建立 kachaka-api 資料夾。
 
 <img src="./quickstart/images/jupyter-clone-sample.png" width="600">
 
-### サンプル実行のための依存ライブラリのインストール
+### 安裝執行範例所需的依賴套件
 
-サンプルを実行するために必要な依存ライブラリをインストールします。
-ダウンロード後初回の一回だけでOKです。
+安裝執行範例所需的依賴套件。
+下載後只需執行一次即可。
 
-* 左側のファイル一覧からkachaka-api/python/demosフォルダを選択します。
-* install_libraries.ipynbをダブルクリックすると、右側にソースコードが表示されます。
-* 上部メニューの「▶▶」ボタンを押して実行します。
+* 在左側的檔案列表中選擇 kachaka-api/python/demos 資料夾。
+* 雙擊 install_libraries.ipynb，右側會顯示原始碼。
+* 按下上方選單的「▶▶」按鈕執行。
 
-### カチャカが発話するサンプルコード
+### Kachaka 發話的範例程式碼
 
-* 左側のファイル一覧からkachaka-api/python/demosフォルダを選択します。
-* 例えばspeak.ipynbをダブルクリックして開いてみましょう。
-* すると、右側にソースコードが表示されます。
-* 上部メニューの「▶▶」ボタンを押すと、コード全体が実行されます。
+* 在左側的檔案列表中選擇 kachaka-api/python/demos 資料夾。
+* 例如雙擊 speak.ipynb 開啟。
+* 右側會顯示原始碼。
+* 按下上方選單的「▶▶」按鈕即可執行全部程式碼。
 
 <img src="./quickstart/images/jupyter-sample-speak.png" width="600">
 
-実行結果
+執行結果
 
-「カチャカです、よろしくね」とカチャカが発話します。
+Kachaka 會說出「カチャカです、よろしくね」。
 
 
-## カチャカAPIのメソッドを試してみる
-* 今度は、`kachaka-api/docs/kachaka_api_client.ipynb` を開いてみましょう。
-* すべてのAPIを1つずつ説明付きで実行するドキュメントになっています。
+## 試用 Kachaka API 的方法
+* 接下來，開啟 `kachaka-api/docs/kachaka_api_client.ipynb`。
+* 這是一份逐一說明並執行所有 API 的文件。
 
 <img src="./quickstart/images/kachaka_api_client_docs.png" width="600">
 
-* 上部メニューで今度は「▶」ボタンを押すと、コードが一つずつ実行されます。
-* 一番上から順番に実行して、ひとつひとつのAPIの動作を確認してみましょう。
+* 這次按下上方選單的「▶」按鈕，即可逐一執行程式碼。
+* 從最上方開始依序執行，逐一確認每個 API 的動作。

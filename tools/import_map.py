@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-# カチャカの地図をインポートする実行形式のスクリプトのサンプルです。
-# Usage: python3 import_map.py --ip_address <カチャカのIPアドレス> --input_file <インポートするマップファイル>
+# 這是匯入 Kachaka 地圖的可執行腳本範例。
+# Usage: python3 import_map.py --ip_address <Kachaka 的 IP 位址> --input_file <要匯入的地圖檔案>
 
 from __future__ import annotations
 

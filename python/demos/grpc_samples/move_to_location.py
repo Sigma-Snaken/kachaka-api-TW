@@ -4,15 +4,15 @@ import grpc
 import kachaka_api_pb2
 from kachaka_api_pb2_grpc import KachakaApiStub
 
-# gRPCの初期化
+# gRPC 的初始化
 stub = KachakaApiStub(grpc.insecure_channel(sys.argv[1]))
 
-# 現在のカーソルを取得します
+# 取得目前的 cursor
 req = kachaka_api_pb2.GetRequest()
 resp = stub.GetLastCommandResult(req)
 last_cursor = resp.metadata.cursor
 
-# move_to_locationのコマンドを準備します
+# 準備 move_to_location 指令
 req = kachaka_api_pb2.StartCommandRequest(
     command=kachaka_api_pb2.Command(
         move_to_location_command=kachaka_api_pb2.MoveToLocationCommand(
@@ -21,7 +21,7 @@ req = kachaka_api_pb2.StartCommandRequest(
     )
 )
 
-# コマンドを実行します
+# 執行指令
 resp = stub.StartCommand(req)
 if not resp.result.success:
     print("Sending MoveToLocation command failed: " + resp.result.error_code)
@@ -29,7 +29,7 @@ if not resp.result.success:
 
 print("MoveToLocation command sent")
 
-# コマンドの実行が完了するのを待ちます
+# 等待指令執行完成
 req = kachaka_api_pb2.GetRequest()
 while True:
     resp = stub.GetLastCommandResult(req)
