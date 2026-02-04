@@ -6,6 +6,10 @@
 
 </div>
 
+> **Note**
+> 本專案 fork 自 [pf-robotics/kachaka-api](https://github.com/pf-robotics/kachaka-api)，所有日文註解與說明已由 **Claude Opus 4.5** 於 **2026 年 2 月**自動翻譯為**繁體中文**。
+> 程式碼邏輯未做任何修改，僅翻譯文件、註解、Notebook markdown cell 及 UI 字串。
+
 ##
 
 [智慧家具平台「Kachaka」](https://kachaka.life/) 的API提供儲存庫。
