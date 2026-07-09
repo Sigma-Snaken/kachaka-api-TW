@@ -10,3 +10,4 @@
 
 - [Kachaka 的家具操作](./api/SHELF_HANDLING.md)
 - [錯誤狀態的偵測與處理](./api/ERROR_HANDLING.md)
+- [音效的管理與播放](./api/SOUND_HANDLING.md)
